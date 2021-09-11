@@ -17,14 +17,14 @@ class Word:
 def parse(filename: str):
     words = []
 
-    with open(filename) as file:
+    with open(filename, "r", encoding='utf-8-sig') as file:
         lines = file.readlines()
 
         current_word = None
 
         for line in lines:
             # Check for close to empty lines
-            if len(line) < 2:
+            if len(line.replace(" ", "")) < 2:
                 continue
 
             parts = line.split()
@@ -38,8 +38,9 @@ def parse(filename: str):
                 # Make a new word with empty defs
                 current_word = Word(parts[0], [])
             else:
-                # Add a definition to defs
-                current_word.defs.append(" ".join(parts[1:]))
+                if current_word is not None:
+                    # Add a definition to defs
+                    current_word.defs.append(" ".join(parts[1:]))
 
         # Add the last word because it's not caught
         words.append(current_word)
