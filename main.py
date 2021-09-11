@@ -45,9 +45,7 @@ def parse(filename: str):
         # Add the last word because it's not caught
         words.append(current_word)
 
-
     return words
-
 
 
 def parse_args():
